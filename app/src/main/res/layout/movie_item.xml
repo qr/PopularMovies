@@ -12,5 +12,5 @@
         android:id="@+id/content"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside" />
+        android:scaleType="centerCrop" />
 </LinearLayout>

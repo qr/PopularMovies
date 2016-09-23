@@ -72,7 +72,7 @@ public class MovieItemViewAdapter extends RecyclerView.Adapter<MovieItemViewAdap
                 .authority("image.tmdb.org")
                 .appendPath("t")
                 .appendPath("p")
-                .appendPath("original");
+                .appendPath("w780");
         String urlString = builder.build().toString();
         urlString += poster_path;
         URL url;
