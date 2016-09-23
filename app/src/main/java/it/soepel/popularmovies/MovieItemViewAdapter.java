@@ -24,7 +24,6 @@ import it.soepel.popularmovies.MovieFragment.OnListFragmentInteractionListener;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link MovieItem} and makes a call to the
  * specified {@link }.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MovieItemViewAdapter extends RecyclerView.Adapter<MovieItemViewAdapter.ViewHolder> {
 
