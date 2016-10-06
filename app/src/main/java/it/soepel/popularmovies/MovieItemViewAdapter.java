@@ -52,7 +52,7 @@ public class MovieItemViewAdapter extends RecyclerView.Adapter<MovieItemViewAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        Picasso.with(mContext).load(generateURL(holder.mItem.poster_path).toString()).into(holder.mImageView);
+        Picasso.with(mContext).load(generateURL(holder.mItem.poster_path).toString()).placeholder(R.drawable.loading).fit().centerCrop().into(holder.mImageView);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
