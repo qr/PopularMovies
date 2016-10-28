@@ -1,8 +1,11 @@
 package it.soepel.popularmovies;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -44,7 +47,9 @@ public class MovieContent {
 
     public void updateItems(MovieItemViewAdapter adapter) {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
-        moviesTask.execute(mContext.getString(R.string.top_rated));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((Activity)mContext);
+        String sortOrder = prefs.getString(mContext.getString(R.string.pref_sort_order_key), mContext.getString(R.string.pref_sort_order_default));
+        moviesTask.execute(sortOrder);
         mAdapter = adapter;
     }
 
