@@ -6,7 +6,7 @@
 
     <!-- Strings related to Settings -->
 
-    <string name="pref_sort_order_default">most_popular</string>
+    <string name="pref_sort_order_default">popular</string>
     <string name="pref_sort_order_key">sort_order</string>
     <string name="pref_sort_order">Sort order</string>
     <string-array name="pref_sort_order_list">
@@ -18,4 +18,11 @@
         <item>popular</item>
         <item>top_rated</item>
     </string-array>
+    <string name="title_activity_detail">Details</string>
+
+    <string name="title_placeholder">Title placeholder</string>
+    <string name="user_rating_placeholder">User rating placeholder</string>
+    <string name="release_date_placeholder">Release date placeholder</string>
+    <string name="user_rating">User rating: %s</string>
+    <string name="release_date">Release date: %s</string>
 </resources>
