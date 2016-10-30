@@ -1,8 +1,11 @@
 package it.soepel.popularmovies;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +31,8 @@ public class MovieFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnListFragmentInteractionListener mListener;
+
+    private MovieContent movieContent = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -77,21 +82,44 @@ public class MovieFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), mColumnCount));
             }
-            MovieContent content = new MovieContent(context);
-            MovieItemViewAdapter adapter = new MovieItemViewAdapter(content.items, mListener, this.getContext());
-            recyclerView.setAdapter(adapter);
-            content.updateItems(adapter);
+            fetchIfNecessary();
         }
         return view;
     }
 
+    @Override
+    public void onStart() {
+        fetchIfNecessary();
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        fetchIfNecessary();
+        super.onResume();
+    }
+
+    protected void fetchIfNecessary() {
+        RecyclerView recyclerView = (RecyclerView) getView();
+        if (null != recyclerView) {
+            Context context = this.getContext();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String sortOrder = prefs.getString(context.getString(R.string.pref_sort_order_key), context.getString(R.string.pref_sort_order_default));
+
+            if (null == movieContent || !sortOrder.equals(movieContent.getLastSortOrder())) {
+                movieContent = new MovieContent(this.getContext());
+                MovieItemViewAdapter adapter = new MovieItemViewAdapter(movieContent.items, mListener, this.getContext());
+                recyclerView.setAdapter(adapter);
+                movieContent.updateItems(adapter);
+            }
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

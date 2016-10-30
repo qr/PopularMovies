@@ -35,8 +35,14 @@ public class MovieContent {
 
     private MovieItemViewAdapter mAdapter;
 
+    private String lastSortOrder = null;
+
     public MovieContent(Context context) {
         mContext = context;
+    }
+
+    public String getLastSortOrder() {
+        return lastSortOrder;
     }
 
     public List<MovieItem> items = new ArrayList<MovieItem>();
@@ -51,6 +57,7 @@ public class MovieContent {
         String sortOrder = prefs.getString(mContext.getString(R.string.pref_sort_order_key), mContext.getString(R.string.pref_sort_order_default));
         moviesTask.execute(sortOrder);
         mAdapter = adapter;
+        lastSortOrder = sortOrder;
     }
 
     public static class MovieItem {
